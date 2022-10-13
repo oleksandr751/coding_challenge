@@ -13,6 +13,7 @@ import SideNav from "./Components/Navigation/SideNav";
 import ApplicationBar from "./Components/Navigation/ApplicationBar";
 import { ReactElement } from "react";
 import StartupList from "./Components/Startup/StartupList";
+import MainContextProvider from "./context/mainContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,36 +45,38 @@ export default function App(): ReactElement {
     setOpen(false);
   };
   return (
-    <Router>
-      <div className={classes.root}>
-        <CssBaseline />
-        <ApplicationBar
-          activeItem={activeItem}
-          handleDrawerOpen={handleDrawerOpen}
-          open={open}
-        />
-        <SideNav
-          handleDrawerOpen={handleDrawerOpen}
-          handleDrawerClose={handleDrawerClose}
-          setActiveItem={setActiveItem}
-          activeItem={activeItem}
-          open={open}
-          setOpen={setOpen}
-        />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => {
-                return <Redirect to="/" />;
-              }}
-            />
-            <Route exact path="/startups" component={} />
-          </Switch>
-        </main>
-      </div>
-    </Router>
+    <MainContextProvider>
+      <Router>
+        <div className={classes.root}>
+          <CssBaseline />
+          <ApplicationBar
+            activeItem={activeItem}
+            handleDrawerOpen={handleDrawerOpen}
+            open={open}
+          />
+          <SideNav
+            handleDrawerOpen={handleDrawerOpen}
+            handleDrawerClose={handleDrawerClose}
+            setActiveItem={setActiveItem}
+            activeItem={activeItem}
+            open={open}
+            setOpen={setOpen}
+          />
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => {
+                  return <Redirect to="/" />;
+                }}
+              />
+              <Route exact path="/startups" component={StartupList} />
+            </Switch>
+          </main>
+        </div>
+      </Router>
+    </MainContextProvider>
   );
 }
