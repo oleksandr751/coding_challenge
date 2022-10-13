@@ -6,9 +6,9 @@ export const useGetData = () => {
   const { setStartUpList } = useContext(MainContext);
   const getStartUpList = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/startups");
-      setStartUpList(response);
+      const response = await axios.get(`api/startups/?all=true`);
       console.log(response);
+      setStartUpList(response.data);
     } catch (error) {
       console.error(error);
     }
