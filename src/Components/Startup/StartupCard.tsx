@@ -8,6 +8,7 @@ interface IStartUpCard {
 }
 
 const StartupCard: React.FC<IStartUpCard> = ({ data }) => {
+  const year = new Date(data.dateFounded).getFullYear();
   return (
     <Paper
       sx={{
@@ -22,7 +23,7 @@ const StartupCard: React.FC<IStartUpCard> = ({ data }) => {
       <Typography
         variant="caption"
         style={{ color: "grey" }}
-      >{`${data.dateFounded} | ${data.employees} | ${data.totalFunding}$ | ${data.currentInvestmentStage}`}</Typography>
+      >{`Founded: ${year} | ${data.employees} | ${data.totalFunding}$ | ${data.currentInvestmentStage}`}</Typography>
       <Typography variant="caption" style={{ marginTop: "10px" }}>
         {data.shortDescription}
       </Typography>
